@@ -28,7 +28,38 @@ import java.util.ArrayList;
  * Assume entered variables are valid.
  */
 
+/* Notes specifically regarding Batteship:
+ *  - The board is made of Water, Hit Markers, and Ship Blocks.
+ *  	- Water is simply a String with one space: " "
+ *  	- Hit markers are "X" or "O". "X" is a hit, "O" is a miss.
+ *  	- Ship Blocks are any character except " ", "X", and "O".
+ *  Each Ship placed by the AI or Player is made of Ship Blocks.
+ *  For example, a Ship of length 3 takes up 3 spaces in the String[][];
+ *   each space the ship takes up is a Ship Block.
+ *  For example:{{ ,C,B},
+ *               { ,C,B},
+ *               {A,A,B}}
+ * 	 				contains 7 Ship Blocks, comprising 3 Ships (A=2, B=3, C=2)
+ */
+
 public interface BattleshipInterface {
+	/* Checks to see if there is a ship block somewhere.
+	 * USES: -/-
+	 * ------PARAMETERS------
+	 * String[][] board : The board.
+	 * 		board.length > 0, board[0].length > 0
+	 * int row : The row in board to check.
+	 * 		row > 0, row < board.length
+	 * int col : The column in board to check.
+	 * 		col > 0, col < board[0].length
+	 * ------RETURN VALUES------
+	 * IF there is a ship block (not " ", "X", or "O") at board[row][col],
+	 * 		RETURN true.
+	 * ELSE
+	 * 		RETURN false.
+	 */
+	public boolean shipAt(String[][] board, int row, int col);
+	
 	/* Places a ship into the board given its location.
 	 * USES: shipAt()
 	 * ------PARAMETERS------
@@ -78,6 +109,10 @@ public interface BattleshipInterface {
 	 * The AI cannot place ships on top of other ships, of off the board.
 	 * USES: placeShip(), shipAt()
 	 * ------PARAMETERS------
+	 * int[] shipLengths : The lengths of each ship the AI will place.
+	 * 		shipLengths.length > 0
+	 * int[] shipChars : The characters of each ship the AI will place.
+	 * 		shipChars.length == shipLengths.length
 	 * int rows : How many rows the new board will have.
 	 * 		rows > 0
 	 * int cols : How many columns the new board will have.
@@ -87,6 +122,12 @@ public interface BattleshipInterface {
 	 */
 	public String[][] setAIBoard(int[] shipLengths, String[] shipChars, int rows, int cols);
 	
+	//TODO
+	public void printFullBoard(String[][] board);
+	
+	//TODO
+	public void printHiddenBoard(String[][] board);
+			
 	/* Given the enemy's board, returns where the AI will fire.
 	 * The returned coordinates must have not been shot at yet.
 	 * 		An "X" or "O" designates a space that has been shot at.
@@ -99,37 +140,8 @@ public interface BattleshipInterface {
 	 */
 	public int[] getAIMove(String[][] board);
 	
-	/* Finds and applies the AI's move to a given board.
-	 * USES: getAIMove()
-	 * ------PARAMETERS------
-	 * String[][] board : The enemy's (player's) board.
-	 * 		board.length > 0, board[0].length > 0
-	 * ------RETURN VALUES------
-	 * RETURN the board with a shot taken to it.
-	 */
-	public String[][] takeAIMove(String[][] board);
-	
-	
-	/* Checks to see if there is a ship block somewhere.
-	 * ------PARAMETERS------
-	 * String[][] board : The board.
-	 * 		board.length > 0, board[0].length > 0
-	 * int row : The row in board to check.
-	 * 		row > 0, row < board.length
-	 * int col : The column in board to check.
-	 * 		col > 0, col < board[0].length
-	 * ------RETURN VALUES------
-	 * IF there is  a ship block at board[row][col],
-	 * 		AND all variables are valid,
-	 * 		RETURN true.
-	 * ELSE
-	 * 		RETURN false.
-	 * This function can not fail to execute.
-	 */
-	public boolean shipAt(String[][] board, int row, int col);
-	
-	/* Fires a shot at a board.
-	 * USES shipAt()
+	/* Fires a shot at a board
+	 * USES: shipAt()
 	 * ------PARAMETERS------
 	 * String[][] board : The board.
 	 * 		board.length > 0, board[0].length > 0
@@ -139,39 +151,41 @@ public interface BattleshipInterface {
 	 * 		col > 0, col < board[0].length
 	 * ------RETURN VALUES------
 	 * IF there is a ship at board[row][col],
-	 * 		AND all variables are valid,
 	 * 		RETURN board with an "X" at board[row][col]. This denotes a "hit".
-	 * ELSE IF there is not a ship at board[row][col],
-	 * 		AND board[row][col] has not yet been shot at,
-	 * 		AND all variables are valid,
+	 * ELSE
 	 * 		RETURN board with an "O" at board[row][col]. This denotes a "miss".
-	 * ELSE 
-	 * 		RETURN board with no changes. This denotes a failure to execute properly.
 	 */
 	public String[][] shootAt(String[][] board, int row, int col);
+	
+	/* Calculates and applies the AI's move to a given board.
+	 * USES: getAIMove(), shootAt()
+	 * ------PARAMETERS------
+	 * String[][] board : The enemy's (player's) board.
+	 * 		board.length > 0, board[0].length > 0
+	 * ------RETURN VALUES------
+	 * RETURN the board with a shot taken to it.
+	 */
+	public String[][] takeAIMove(String[][] board);
 	
 	/* Looks to see which ships are destroyed.
 	 * USES: shipAt()
 	 * ------PARAMETERS------
 	 * String[][] board : The board which is being checked.
 	 * 		board.length > 0, board[0].length > 0
-	 * String[] ships : The characters which represent ships.
+	 * String[] ships : The characters which represent ships in this board.
 	 * 		ships.length > 0
 	 * ------RETURN VALUES------
-	 * IF all entered variables are valid,
-	 * 		RETURN a String[] which contains each character in ships which is no longer in board, i.e. has been destroyed.
-	 * ELSE
-	 * 		RETURN an empty String[]
+	 * RETURN a String[] which contains each character in ships which is no longer in board, i.e. has been destroyed.
 	 */
 	public String[] checkDestruction(String[][] board, String[] ships);
 	
-	/* <Description of what this method does>
+	/* Checks to see if the given board has been destroyed (no ships)
+	 * USES: checkDestruction()
 	 * ------PARAMETERS------
 	 * String[][] board : The board which is being checked.
 	 * 		board.length > 0, board[0].length > 0
 	 * ------RETURN VALUES------
-	 * IF all ships in the board have been destroyed, (i.e. board is comprised of only " ", "X", and "O")
-	 * 		AND all entered variables are valid,
+	 * IF all ships in the board have been destroyed (i.e. board is comprised of only " ", "X", and "O"),
 	 * 		RETURN true.
 	 * ELSE
 	 * 		RETURN false.
