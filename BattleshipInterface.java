@@ -24,6 +24,8 @@ import java.util.ArrayList;
  * 				Listed under each description are restrictions on the parameter's value.
  * RETURN VALUES are descriptions of what to return and when.
  * 				Pay attention to AND/OR requirements.
+ * 
+ * Assume entered variables are valid.
  */
 
 public interface BattleshipInterface {
@@ -44,8 +46,7 @@ public interface BattleshipInterface {
 	 * String disp : What the ship will display as. 
 	 * 		disp.length() == 1, !disp.equals("X"), !disp.equals("O")
 	 * ------RETURN VALUES------
-	 * IF all entered PARAMETERS are valid,
-	 * 		AND the ship can fit inside the board, 
+	 * IF the ship can fit inside the board, 
 	 * 		AND it does not cover another ship,
 	 * 		RETURN the board with the ship added.
 	 * ELSE
@@ -54,28 +55,27 @@ public interface BattleshipInterface {
 	public String[][] placeShip(String[][] board, int len, int sRow, int sCol, boolean isVert, String disp);
 	
 	/* Walks the player through setting up their board.
-	 * The player must decide exactly where each ship will go.
-	 * The player must be able to restart the process.
+	 * The player DOES NOT decide: Ship Lengths, Board Size
+	 * The player DOES decide: Ship Locations, Ship Rotations
+	 * The player cannot place ships on top of other ships, of off the board.
 	 * USES: placeShip(), shipAt()
 	 * ------PARAMETERS------
 	 * int[] shipLengths : The lengths of each ship the player will place.
 	 * 		shipLengths.length > 0
+	 * int[] shipChars : The characters of each ship the player will place.
+	 * 		shipChars.length == shipLengths.length
 	 * int rows : How many rows the new board will have.
 	 * 		rows > 0
 	 * int cols : How many columns the new board will have.
 	 * 		cols > 0
 	 * ------RETURN VALUES------
-	 * IF all entered PARAMETERS are valid,
-	 * 		AND the player successfully placed all their ships,
-	 * 		RETURN the newly created player's board.
-	 * 				Any space without a ship block is simply a single space: " ".
-	 * ELSE
-	 * 		RETURN a String[][] with 1 row and 1 col. [0][0] == -1. This denotes failure to execute properly.
+	 * RETURN the newly created player's board.
 	 */
-	public String[][] setPlayerBoard(int[] shipLengths, int rows, int cols);
+	public String[][] setPlayerBoard(int[] shipLengths, String[] shipChars, int rows, int cols);
 	
 	/* Automatically sets up the AI's board.
-	 * The player must not need to input anything for this step to happen.
+	 * The player should not have to do anything for this step to happen.
+	 * The AI cannot place ships on top of other ships, of off the board.
 	 * USES: placeShip(), shipAt()
 	 * ------PARAMETERS------
 	 * int rows : How many rows the new board will have.
@@ -84,21 +84,18 @@ public interface BattleshipInterface {
 	 * 		cols > 0
 	 * ------RETURN VALUES------
 	 * RETURN the newly created AI's board.
-	 * This function can not fail to execute.
 	 */
-	public String[][] setAIBoard(int rows, int cols);
+	public String[][] setAIBoard(int[] shipLengths, String[] shipChars, int rows, int cols);
 	
 	/* Given the enemy's board, returns where the AI will fire.
+	 * The returned coordinates must have not been shot at yet.
+	 * 		An "X" or "O" designates a space that has been shot at.
 	 * USES: shipAt()
 	 * ------PARAMETERS------
 	 * String[][] board : The enemy's board.
 	 * 		board.length > 0, board[0].length > 0
 	 * ------RETURN VALUES------
-	 * IF all entered parameters are valid,
-	 * 		RETURN an int[] of length 2. [0] is the row to shoot, [1] is the column to shoot.
-	 * 				The returned coordinates must have not been shot at yet.
-	 * ELSE
-	 * 		RETURN an int[] of length 1. [0] == -1. This denotes failure to execute properly.
+	 * RETURN an int[] of length 2. [0] is the row to shoot, [1] is the column to shoot.			
 	 */
 	public int[] getAIMove(String[][] board);
 	
