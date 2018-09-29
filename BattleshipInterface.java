@@ -19,7 +19,7 @@ import java.util.ArrayList;
  * public class <Your Game's Name> implements BattleshipInterface { ... }
  * 
  * Each method description includes USES, PARAMETERS, and RETURN VALUES.
- * USES are methods in this interface that can or should be used inside this function.
+ * USES are methods in this interface that are recommended to be used in the function.
  * PARAMETERS are descriptions of each parameter in the function header. 
  * 				Listed under each description are restrictions on the parameter's value.
  * RETURN VALUES are descriptions of what to return and when.
@@ -102,8 +102,15 @@ public interface BattleshipInterface {
 	 */
 	public int[] getAIMove(String[][] board);
 	
-	// TODO
-	public String[] takeAIMove();
+	/* Finds and applies the AI's move to a given board.
+	 * USES: getAIMove()
+	 * ------PARAMETERS------
+	 * String[][] board : The enemy's (player's) board.
+	 * 		board.length > 0, board[0].length > 0
+	 * ------RETURN VALUES------
+	 * RETURN the board with a shot taken to it.
+	 */
+	public String[][] takeAIMove(String[][] board);
 	
 	
 	/* Checks to see if there is a ship block somewhere.
@@ -136,13 +143,13 @@ public interface BattleshipInterface {
 	 * ------RETURN VALUES------
 	 * IF there is a ship at board[row][col],
 	 * 		AND all variables are valid,
-	 * 		RETURN board with an X at board[row][col]. This denotes a "hit".
+	 * 		RETURN board with an "X" at board[row][col]. This denotes a "hit".
 	 * ELSE IF there is not a ship at board[row][col],
 	 * 		AND board[row][col] has not yet been shot at,
 	 * 		AND all variables are valid,
-	 * 		RETURN board with an O at board[row][col]. This denotes a "miss".
+	 * 		RETURN board with an "O" at board[row][col]. This denotes a "miss".
 	 * ELSE 
-	 * 		RETURN board with no changes. THis denotes a failure to execute properly.
+	 * 		RETURN board with no changes. This denotes a failure to execute properly.
 	 */
 	public String[][] shootAt(String[][] board, int row, int col);
 	
@@ -154,11 +161,23 @@ public interface BattleshipInterface {
 	 * String[] ships : The characters which represent ships.
 	 * 		ships.length > 0
 	 * ------RETURN VALUES------
-	 * RETURNS a String[] which contains each character which is no longer in board, i.e. has been destroyed.
-	 * This function can not fail to execute.
+	 * IF all entered variables are valid,
+	 * 		RETURN a String[] which contains each character in ships which is no longer in board, i.e. has been destroyed.
+	 * ELSE
+	 * 		RETURN an empty String[]
 	 */
 	public String[] checkDestruction(String[][] board, String[] ships);
 	
-	// TODO
+	/* <Description of what this method does>
+	 * ------PARAMETERS------
+	 * String[][] board : The board which is being checked.
+	 * 		board.length > 0, board[0].length > 0
+	 * ------RETURN VALUES------
+	 * IF all ships in the board have been destroyed, (i.e. board is comprised of only " ", "X", and "O")
+	 * 		AND all entered variables are valid,
+	 * 		RETURN true.
+	 * ELSE
+	 * 		RETURN false.
+	 */
 	public boolean checkVictory(String[][] board);
 }
