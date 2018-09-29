@@ -122,12 +122,32 @@ public interface BattleshipInterface {
 	 */
 	public String[][] setAIBoard(int[] shipLengths, String[] shipChars, int rows, int cols);
 	
-	//TODO
+	/* Prints out the given board with everything revealed,
+	 *  including ships, water, hits, and misses.
+	 * Best used to show the player's board as they are allowed to see their own ships.
+	 * USES: -/-
+	 * ------PARAMETERS------
+	 * String[][] board : The board.
+	 * 		board.length > 0, board[0].length > 0
+	 * ------RETURN VALUES------
+	 * void
+	 */
 	public void printFullBoard(String[][] board);
 	
-	//TODO
-	public void printHiddenBoard(String[][] board);
-			
+	/* Prints out the given board with ships hidden.
+	 * Display any space that is not "X" or "O" as hiddenChar.
+	 * Best used to show the AI's board because the player shouldn't know ship's locations.
+	 * USES: -/-
+	 * ------PARAMETERS------
+	 * String[][] board : The board.
+	 * 		board.length > 0, board[0].length > 0
+	 * String hiddenChar : What to show any hidden space (not "X" or "O") as
+	 * 		hiddenChar.length() == 1
+	 * ------RETURN VALUES------
+	 * void
+	 */
+	public void printHiddenBoard(String[][] board, String hiddenChar);
+	
 	/* Given the enemy's board, returns where the AI will fire.
 	 * The returned coordinates must have not been shot at yet.
 	 * 		An "X" or "O" designates a space that has been shot at.
@@ -140,7 +160,7 @@ public interface BattleshipInterface {
 	 */
 	public int[] getAIMove(String[][] board);
 	
-	/* Fires a shot at a board
+	/* Fires a shot at a board.
 	 * USES: shipAt()
 	 * ------PARAMETERS------
 	 * String[][] board : The board.
