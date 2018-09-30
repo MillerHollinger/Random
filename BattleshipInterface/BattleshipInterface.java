@@ -77,7 +77,10 @@ public interface BattleshipInterface {
 	 * String disp : What the ship will display as. 
 	 * 		disp.length() == 1, !disp.equals("X"), !disp.equals("O")
 	 * ------RETURN VALUES------
-	 * RETURN the board with the ship added.
+	 * IF the place location is valid,
+	 * 		RETURN the board with the ship added.
+	 * ELSE
+	 * 		RETURN the original board. This denotes failure to execute properly.
 	 */
 	public String[][] placeShip(String[][] board, int len, int sRow, int sCol, boolean isVert, String disp);
 	
