@@ -77,19 +77,41 @@ public interface BattleshipInterface {
 	 * String disp : What the ship will display as. 
 	 * 		disp.length() == 1, !disp.equals("X"), !disp.equals("O")
 	 * ------RETURN VALUES------
-	 * IF the ship can fit inside the board, 
-	 * 		AND it does not cover another ship,
-	 * 		RETURN the board with the ship added.
-	 * ELSE
-	 * 		RETURN the original board with no changes made. This denotes failure to execute properly.
+	 * RETURN the board with the ship added.
 	 */
 	public String[][] placeShip(String[][] board, int len, int sRow, int sCol, boolean isVert, String disp);
+	
+	/* Prints out the given board with everything revealed,
+	 *  including ships, water, hits, and misses.
+	 * Best used to show the player's board as they are allowed to see their own ships.
+	 * USES: -/-
+	 * ------PARAMETERS------
+	 * String[][] board : The board.
+	 * 		board.length > 0, board[0].length > 0
+	 * ------RETURN VALUES------
+	 * void
+	 */
+	public void printFullBoard(String[][] board);
+	
+	/* Prints out the given board with ships hidden.
+	 * Display any space that is not "X" or "O" as hiddenChar.
+	 * Best used to show the AI's board because the player shouldn't know ship's locations.
+	 * USES: -/-
+	 * ------PARAMETERS------
+	 * String[][] board : The board.
+	 * 		board.length > 0, board[0].length > 0
+	 * String hiddenChar : What to show any hidden space (not "X" or "O") as
+	 * 		hiddenChar.length() == 1
+	 * ------RETURN VALUES------
+	 * void
+	 */
+	public void printHiddenBoard(String[][] board, String hiddenChar);
 	
 	/* Walks the player through setting up their board.
 	 * The player DOES NOT decide: Ship Lengths, Board Size
 	 * The player DOES decide: Ship Locations, Ship Rotations
-	 * The player cannot place ships on top of other ships, of off the board.
-	 * USES: placeShip(), shipAt()
+	 * Show the player the board before they place each ship.
+	 * USES: placeShip(), shipAt(), printFullBoard()
 	 * ------PARAMETERS------
 	 * int[] shipLengths : The lengths of each ship the player will place.
 	 * 		shipLengths.length > 0
@@ -121,32 +143,6 @@ public interface BattleshipInterface {
 	 * RETURN the newly created AI's board.
 	 */
 	public String[][] setAIBoard(int[] shipLengths, String[] shipChars, int rows, int cols);
-	
-	/* Prints out the given board with everything revealed,
-	 *  including ships, water, hits, and misses.
-	 * Best used to show the player's board as they are allowed to see their own ships.
-	 * USES: -/-
-	 * ------PARAMETERS------
-	 * String[][] board : The board.
-	 * 		board.length > 0, board[0].length > 0
-	 * ------RETURN VALUES------
-	 * void
-	 */
-	public void printFullBoard(String[][] board);
-	
-	/* Prints out the given board with ships hidden.
-	 * Display any space that is not "X" or "O" as hiddenChar.
-	 * Best used to show the AI's board because the player shouldn't know ship's locations.
-	 * USES: -/-
-	 * ------PARAMETERS------
-	 * String[][] board : The board.
-	 * 		board.length > 0, board[0].length > 0
-	 * String hiddenChar : What to show any hidden space (not "X" or "O") as
-	 * 		hiddenChar.length() == 1
-	 * ------RETURN VALUES------
-	 * void
-	 */
-	public void printHiddenBoard(String[][] board, String hiddenChar);
 	
 	/* Given the enemy's board, returns where the AI will fire.
 	 * The returned coordinates must have not been shot at yet.
