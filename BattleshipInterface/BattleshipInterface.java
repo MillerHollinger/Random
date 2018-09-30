@@ -209,5 +209,5 @@ public interface BattleshipInterface {
 	 * ELSE
 	 * 		RETURN false.
 	 */
-	public boolean checkVictory(String[][] board);
+	public boolean checkVictory(String[][] board, String[] ships);
 }
