@@ -16,8 +16,6 @@ import java.util.ArrayList;
 
 /* This is the interface for Battleship.
  * 
- * public class <Your Game's Name> implements BattleshipInterface { ... }
- * 
  * Each method description includes USES, PARAMETERS, and RETURN VALUES.
  * USES are methods in this interface that are recommended to be used in the function.
  * PARAMETERS are descriptions of each parameter in the function header. 
@@ -26,6 +24,15 @@ import java.util.ArrayList;
  * 				Pay attention to AND/OR requirements.
  * 
  * Assume entered variables are valid.
+ * 
+ * ! ! ! VERY IMPORTANT ! ! !
+ * If you will be having the file which implements this interface
+ *  also have the main, you will be unable to call any of these
+ *  functions if you don't add static to their headers.
+ * However, if you add static, you're not actually implementing the interface,
+ *  and an error will occur on compile.
+ * Solution: Don't implement this interface, just use it as a guide.
+ * 
  */
 
 /* Notes specifically regarding Batteship:
