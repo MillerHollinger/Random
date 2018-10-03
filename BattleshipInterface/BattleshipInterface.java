@@ -25,17 +25,9 @@ import java.util.ArrayList;
  * 
  * Assume entered variables are valid.
  * 
- * ! ! ! VERY IMPORTANT ! ! !
- * If you will be having the file which implements this interface
- *  also have the main, you will be unable to call any of these
- *  functions if you don't add static to their headers.
- * However, if you add static, you're not actually implementing the interface,
- *  and an error will occur on compile.
- * Solution: Don't implement this interface, just use it as a guide.
- * 
  */
 
-/* Notes specifically regarding Batteship:
+/* Notes specifically regarding Battleship:
  *  - The board is made of Water, Hit Markers, and Ship Blocks.
  *  	- Water is simply a String with one space: " "
  *  	- Hit markers are "X" or "O". "X" is a hit, "O" is a miss.
@@ -47,6 +39,7 @@ import java.util.ArrayList;
  *               { ,C,B},
  *               {A,A,B}}
  * 	 				contains 7 Ship Blocks, comprising 3 Ships (A=2, B=3, C=2)
+ * 
  */
 
 public interface BattleshipInterface {
@@ -84,10 +77,7 @@ public interface BattleshipInterface {
 	 * String disp : What the ship will display as. 
 	 * 		disp.length() == 1, !disp.equals("X"), !disp.equals("O")
 	 * ------RETURN VALUES------
-	 * IF the place location is valid,
-	 * 		RETURN the board with the ship added.
-	 * ELSE
-	 * 		RETURN the original board. This denotes failure to execute properly.
+	 * RETURN the board with the ship added.
 	 */
 	public String[][] placeShip(String[][] board, int len, int sRow, int sCol, boolean isVert, String disp);
 	
