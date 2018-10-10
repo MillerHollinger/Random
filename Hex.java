@@ -1070,7 +1070,5 @@ public class Hex
             bot.keyRelease(KeyEvent.VK_ENTER);
          }
       }
-      bot.keyPress(KeyEvent.VK_ENTER); // press enter to send message
-      bot.keyRelease(KeyEvent.VK_ENTER);
    }
 }
