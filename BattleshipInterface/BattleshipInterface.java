@@ -195,7 +195,7 @@ public interface BattleshipInterface {
 	 */
 	public String[] checkDestruction(String[][] board, String[] ships);
 	
-	/* Checks to see if the given board has been destroyed (no ships)
+	/* Checks to see if the given board has been destroyed (no ships left).
 	 * USES: checkDestruction()
 	 * ------PARAMETERS------
 	 * String[][] board : The board which is being checked.

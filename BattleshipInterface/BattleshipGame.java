@@ -4,6 +4,7 @@
  * To complete this project, fill in each function as BattleshipInterface tells you to.
  * Then, fill in sections labeled with : TODO
  * You can find TODO items easily with the CTRL+F search function.
+ * After you complete a TODO item, and it works, delete the TODO so you know you can move on.
  * When you're done, if all your functions do what they're supposed to, you'll have a
  *  fully functional version of Battleship.
  *  
@@ -92,47 +93,89 @@ public class BattleshipGame implements BattleshipInterface{
 	 * 
 	 */
 	
+	/* TODO : Checks to see if there is a ship block somewhere.
+	 * Check BattleshipInterface for more information.
+	 */
 	public boolean shipAt(String[][] board, int row, int col) {
 		
+		return false; // TODO Default return statement, replace.
 	}
 
+	/* TODO : Places a ship into the board given its location.
+	 * Check BattleshipInterface for more information.
+	 */
 	public String[][] placeShip(String[][] board, int len, int sRow, int sCol, boolean isVert, String disp) {
 		
+		return new String[1][1]; // TODO Default return statement, replace.
 	}
 
+	/* TODO : Prints out the given board with everything revealed, including ships, water, hits, and misses.
+	 * Check BattleshipInterface for more information.
+	 */
 	public void printFullBoard(String[][] board) {
 		
 	}
 
+	/* TODO : Prints out the given board with ships hidden.
+	 * Check BattleshipInterface for more information.
+	 */
 	public void printHiddenBoard(String[][] board, String hiddenChar) {
 		
 	}
-	
+
+	/* TODO : Walks the player through setting up their board.
+	 * Check BattleshipInterface for more information.
+	 */
 	public String[][] setPlayerBoard(int[] shipLengths, String[] shipChars, int rows, int cols) {
 		
+		return new String[1][1]; // TODO Default return statement, replace.
 	}
 
+	/* TODO : Automatically sets up the AI's board.
+	 * Check BattleshipInterface for more information.
+	 */
 	public String[][] setAIBoard(int[] shipLengths, String[] shipChars, int rows, int cols) {
 		
+		return new String[1][1]; // TODO Default return statement, replace.
 	}
 
+	/* TODO : Given the enemy's board, returns where the AI will fire.
+	 * Check BattleshipInterface for more information.
+	 */
 	public int[] getAIMove(String[][] board) {
 		
+		return new int[1]; // TODO Default return statement, replace.
 	}
 
+	/* TODO : Fires a shot at a board.
+	 * Check BattleshipInterface for more information.
+	 */
 	public String[][] shootAt(String[][] board, int row, int col) {
 		
+		return new String[1][1]; // TODO Default return statement, replace.
 	}
 
+	/* TODO : Calculates and applies the AI's move to a given board.
+	 * Check BattleshipInterface for more information.
+	 */
 	public String[][] takeAIMove(String[][] board) {
 		
+		return new String[1][1]; // TODO Default return statement, replace.
 	}
 
+	/* TODO : Looks to see which ships are destroyed.
+	 * Check BattleshipInterface for more information.
+	 */
 	public String[] checkDestruction(String[][] board, String[] ships) {
 		
+		return new String[1]; // TODO Default return statement, replace.
 	}
 
+	/* TODO : Checks to see if the given board has been destroyed (no ships left).
+	 * Check BattleshipInterface for more information.
+	 */
 	public boolean checkVictory(String[][] board, String[] ships) {
 		
+		return false; // TODO Default return statement, replace.
 	}
 }
