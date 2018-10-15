@@ -75,7 +75,7 @@ public class Hex
          if (input.equalsIgnoreCase("")) [OPTION NAME 1]
          {
             [OPTION CODE]
-         }
+         }0
          else if (input.equalsIgnoreCase("")) [OPTION NAME 2] (Copy for more options)
          {
             [OPTION CODE]
@@ -293,45 +293,40 @@ public class Hex
             charPrint("Press ENTER to start 5-second countdown, or X to quit.");
             if (!userInput.nextLine().equalsIgnoreCase("X"))
             {
-               charPrint("5");
-               Thread.sleep(1000);
-               charPrint("4");
-               Thread.sleep(1000);
-               charPrint("3");
-               Thread.sleep(1000);
-               charPrint("2");
-               Thread.sleep(1000);
-               charPrint("1");
-               Thread.sleep(1000);
-               charPrint("PROGRESS : [      ]");
+               for (int i = 5; i > 0; i--)
+               {
+            	   charPrint("" + i);
+            	   Thread.sleep(1000);
+               }
+               charPrint("PROGRESS : [            ]");
                for (int i = 1; i <= clicks; i++)
                {
                   click();
                   Thread.sleep(delay);
+                  if (i == clicks/12)
+                      charPrint("PROGRESS : [|           ]");
                   if (i == clicks/6)
-                  {
-                     charPrint("PROGRESS : [|     ]");
-                  }
+                      charPrint("PROGRESS : [||          ]");
+                  if (i == clicks/4)
+                      charPrint("PROGRESS : [|||         ]");
                   if (i == clicks/3)
-                  {
-                     charPrint("PROGRESS : [||    ]");
-                  }
+                      charPrint("PROGRESS : [||||        ]");
+                  if (i == clicks*5/12)
+                      charPrint("PROGRESS : [|||||       ]");
                   if (i == clicks/2)
-                  {
-                     charPrint("PROGRESS : [|||   ]");
-                  }
+                      charPrint("PROGRESS : [||||||      ]");
+                  if (i == clicks*7/12)
+                      charPrint("PROGRESS : [|||||||     ]");
                   if (i == clicks*2/3)
-                  {
-                     charPrint("PROGRESS : [||||  ]");
-                  }
+                      charPrint("PROGRESS : [||||||||    ]");
+                  if (i == clicks*3/4)
+                      charPrint("PROGRESS : [|||||||||   ]");
                   if (i == clicks*5/6)
-                  {
-                     charPrint("PROGRESS : [||||| ]");
-                  }
+                      charPrint("PROGRESS : [||||||||||  ]");
+                  if (i == clicks*11/12)
+                      charPrint("PROGRESS : [||||||||||| ]");
                   if (i == clicks)
-                  {
-                     charPrint("PROGRESS : [||||||]");
-                  }
+                      charPrint("PROGRESS : [||||||||||||]");
                }
             }
          }
