@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 
+// The interface used in BattleshipGame.
+// Don't edit this file. All work will be done in BattleshipGame.
+
 public interface BattleshipInterface {
 	
 	public boolean shipAt(String[][] board, int row, int col);
