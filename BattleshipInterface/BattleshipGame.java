@@ -73,8 +73,7 @@ public class BattleshipGame implements BattleshipInterface{
 		
 		/* TODO Create some characters.
 		 * There should be five unique ship characters in this array.
-		 * Re
-		 * member, your characters can't be " ", "X", or "O".
+		 * Remember, your characters can't be " ", "X", or "O".
 		 */
 		// The ship's display characters. There should be five.
 		String[] shipChars = {"" , "", "", "", ""};
