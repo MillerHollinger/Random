@@ -31,7 +31,25 @@ import java.rmi.server.*;
  * > Hardline Mode
  *   - Uses command-esque single-line commands to setup and execute everything
  * 
- * 
+ * Data Formatting
+ * Autoclicker:
+ * 	AC[Clicks][ms]
+ * 		Clicks = how many clicks to do
+ * 		ms = time between clicks
+ * Alternating:
+ * 	LT[Clicks][Type][ms]
+ * 		Clicks = how many clicks to do
+ * 		Type = what to type between clicks
+ * 		ms = time between clicks
+ * Macro:
+ * 	MC[Action(Data)][Action(Data)][ ... ]
+ * 		Action = an action: Press, Click, Delay
+ * 			Press(Data) = (ToPress, ms, loopsPer)
+ * 				ToPress = what key(s) to press
+ * 			Click(Data) = (ms, loopsPer)
+ * 			Delay(Data) = (ms, loopsPer)
+ * 		    	ms = time between parts of this step
+ * 				loopsPer = how many loops per run of this action
  */
 
 public class Hex {
@@ -61,11 +79,11 @@ public class Hex {
 		// Macro
 		// Load file or new?
 		// New
-		// IPress, HPress, IClick, HClick, Delay
-		// IPress
-		// HPress
-		// IClick
-		// HClick
+		// Press, Click, Delay
+		// Press
+		// Press
+		// Click
+		// Click
 		// Delay
 		// Load
 		// Display applicable
@@ -75,9 +93,55 @@ public class Hex {
 		// Execute action
 	}
 
-	// TODO Does autoclicking
-	public static void autoclick(String fileName) {
-
+	// Asks a yes or no question.
+	public static boolean yes(String question)
+	{
+		println(question + " Yes/No");
+		String choice = "";
+		boolean invalid = false;
+		while (!choice.equalsIgnoreCase("y") || !choice.equalsIgnoreCase("yes") || !choice.equalsIgnoreCase("n") || !choice.equalsIgnoreCase("no"))
+		{
+			if (invalid)
+				println("ERROR: Bad user input.\nEnter Yes or Y for Affirmative; No or N for Negative.");
+			choice = new Scanner(System.in).nextLine();
+			invalid = true;
+		}
+		return choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes");
+	}	
+	
+	// Printers.
+	public static void print(Object o)
+	{
+		System.out.print(o.toString());
+	}
+	public static void println(Object o)
+	{
+		System.out.println(o.toString());
+	}
+	
+	// Does autoclicking
+	public static void autoclick(String fileName) throws Exception {
+		String data = readFrom(fileName);
+		int clicks = 0;
+		int ms = 0;
+		if (data.substring(0, 4).equals("AC[")) {
+			try {
+				clicks = Integer.parseInt(data.substring(data.indexOf("["), data.indexOf("]")));
+				data = data.substring(data.indexOf("]") + 1);
+				ms = Integer.parseInt(data.substring(data.indexOf("["), data.indexOf("]")));
+				data = data.substring(data.indexOf("]") + 1);
+				println("Data accepted. Clicking " + clicks + " times with a " + ms + " ms delay.");
+				if (yes("Continue?))"))
+					for (int i = 0; i < clicks; i++)
+						click(ms);
+				else
+					println("Cancelled.");
+			} catch (Exception e) {
+				println("ERROR: Bad file data. Failed to execute.");
+			}
+		}
+		else
+			println("ERROR: Bad file data. Failed to execute.");
 	}
 
 	// TODO Does alternating
@@ -273,24 +337,6 @@ public class Hex {
 		for (int i = 0; i < keys.length(); i++)
 			press(keys, ms);
 	}
-
-	/*public static void AppendFile(String name, String toAdd) throws FileNotFoundException, IOException// appends text to the given file, or creates it
-   public static void ClearFile(String name) throws FileNotFoundException, IOException// clears a file of all data
-   {
-      FileWriter filew = new FileWriter(name, false);
-      PrintWriter writer = new PrintWriter(filew);
-      writer.printf("%s" + "%n" , "");
-      writer.close();
-   }
-   public static void ReadFile(String name) throws FileNotFoundException, IOException, InterruptedException, AWTException // reads a file
-   {
-      Scanner fileReader = new Scanner(new File(name));
-      charPrint("|-FILE:"+name+"-------|");
-      while (fileReader.hasNext())
-         charPrint(fileReader.nextLine());
-      charPrint("--<EOF>--");
-   }
-   */
 	
 	// File writer
 	public static void writeTo(String fileName, String toAdd) throws Exception {
@@ -309,7 +355,7 @@ public class Hex {
 	}
 
 	// File reader
-	public static String readFrom(String fileName) throws FileNotFoundException {
+	public static String readFrom(String fileName) throws Exception {
 		String out = "";
 		Scanner fileReader = new Scanner(new File(fileName));
 	    while (fileReader.hasNext())
