@@ -105,11 +105,23 @@ public class Hex
 		
 	}
 	
-	// Types multiple keys
-	
+	// Types multiple keys with a delay
+	public static void type(String key, int ms)
+	{
+		
+	}
 	
 	// File writer
+	public static void writeTo(String fileName, String toAdd)
+	{
+		
+	}
 
 	// File reader
-
+	public static String readFrom(String fileName)
+	{
+		String out = "";
+		
+		return out;
+	}
 }
