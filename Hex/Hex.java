@@ -52,43 +52,7 @@ import java.rmi.server.*;
 
 public class Hex {
 	public static void main(String[] args) throws Exception {
-		// Menu Mode or Hardline Mode
-		// Main Loop
-		// Menu Mode
-		// Autoclick, Alternate, or Macro
-		// Get information for selected action
-		// Autoclick
-		// Load file or new?
-		// New
-		// Click delay?
-		// Total clicks?
-		// Load
-		// Display applicable
-		// Load it
-		// Alternate
-		// Load file or new?
-		// New
-		// Click delay?
-		// Total clicks?
-		// Key to press?
-		// Load
-		// Display applicable
-		// Load it
-		// Macro
-		// Load file or new?
-		// New
-		// Press, Click, Delay
-		// Press
-		// Press
-		// Click
-		// Click
-		// Delay
-		// Load
-		// Display applicable
-		// Load it
-		// Hardline mode
-		// Get all information
-		// Execute action
+		macro("testMacro");
 	}
 
 	private static class Command {
@@ -99,22 +63,24 @@ public class Hex {
 
 		// Parses a string to a command of form: [type(press,ms,loopsPer)
 		public Command(String in) {
-			try
-			{
-				type = in.substring(1, 6); 
+			println("Attempting to load command with info: " + in); // DEBUG
+			try {
+				type = in.substring(1, 6);
 				in = in.substring(6);
-				
-				press = in.substring(1,in.indexOf(","));  
+				println("Loaded type of " + type + "; in = " + in); // DEBUG
+
+				press = in.substring(1, in.indexOf(","));
 				in = in.substring(in.indexOf(",") + 1);
-				
-				ms = Integer.parseInt(in.substring(1,in.indexOf(",")));  
+				println("Loaded press of " + press + "; in = " + in); // DEBUG
+
+				ms = Integer.parseInt(in.substring(0, in.indexOf(",")));
 				in = in.substring(in.indexOf(",") + 1);
-				
-				loopsPer = Integer.parseInt(in.substring(1,in.indexOf(",")));  
-			}
-			catch (Exception e)
-			{
-				println("ERROR: Failed to load command");
+				println("Loaded ms of " + ms + "; in = " + in); // DEBUG
+
+				loopsPer = Integer.parseInt(in.substring(0, in.indexOf(")")));
+				println("Loaded loopsPer of " + loopsPer + "; in = " + in); // DEBUG
+			} catch (Exception e) {
+				println("ERROR: Failed to load command. " + e); // DEBUG
 			}
 		}
 
@@ -126,9 +92,10 @@ public class Hex {
 			loopsPer = l;
 		}
 
-		// Executes this command if loopsPer % loopNum == 0
+		// Executes this command
 		public void execute(int loopNum) throws Exception {
-			if (loopsPer % loopNum == 0)
+			if (loopNum % loopsPer == 0) {
+				println("Executing " + this.toString() + "; loopNum = " + loopNum); // DEBUG
 				switch (type) {
 				case "Press":
 					press(press, ms);
@@ -140,13 +107,14 @@ public class Hex {
 					Thread.sleep(ms);
 					break;
 				}
+			}
 		}
 
 		// Returns data based on type
 		public String toString() {
 			switch (type) {
 			case "Press":
-				return "Press() : Presses " + press + "; " + ms + " ms delay; runs every " + loopsPer + " loops";
+				return "Press() : Presses \"" + press + "\"; " + ms + " ms delay; runs every " + loopsPer + " loops";
 			case "Click":
 				return "Click() : Clicks once with " + ms + " ms delay; runs every " + loopsPer + " loops";
 			case "Delay":
@@ -161,8 +129,8 @@ public class Hex {
 		println(question + " Yes/No");
 		String choice = "";
 		boolean invalid = false;
-		while (!choice.equalsIgnoreCase("y") || !choice.equalsIgnoreCase("yes") || !choice.equalsIgnoreCase("n")
-				|| !choice.equalsIgnoreCase("no")) {
+		while (!choice.equalsIgnoreCase("y") && !choice.equalsIgnoreCase("yes") && !choice.equalsIgnoreCase("n")
+				&& !choice.equalsIgnoreCase("no")) {
 			if (invalid)
 				println("ERROR: Bad user input.\nEnter Yes or Y for Affirmative; No or N for Negative.");
 			choice = new Scanner(System.in).nextLine();
@@ -232,35 +200,33 @@ public class Hex {
 			println("ERROR: Bad file data. Failed to execute.");
 	}
 
-	// TODO Does a macro
+	// Does a macro
 	@SuppressWarnings("resource")
 	public static void macro(String fileName) throws Exception {
 		try {
 			String[] data = readFrom(fileName).substring(2).split("]"); // MC[...][...][...] -> [...][...][...] -> [...
 																		// , [... , [...
 			ArrayList<Command> commands = new ArrayList<Command>();
-			
+
 			for (String info : data)
 				commands.add(new Command(info));
-			
-			println("Macro \""+fileName+"\" loaded:");
+
+			println("Macro \"" + fileName + "\" loaded:");
 			for (Command c : commands)
 				println(c);
-			
-			if (yes("Continue?"))
-			{
+
+			if (yes("Continue?")) {
 				println("How many loops to run?");
 				int loops = new Scanner(System.in).nextInt();
-				for (int i = 0; i < loops; i++)
+				for (int i = 1; i <= loops; i++)
 					for (int j = 0; j < commands.size(); j++)
 						commands.get(j).execute(i);
 				println("Finished.");
-			}
-			else
+			} else
 				println("Cancelled.");
-			
+
 		} catch (Exception e) {
-			println("ERROR: Bad file data. Failed to execute.");
+			println("ERROR: Bad file data. Failed to execute. " + e); // DEBUG
 		}
 
 	}
@@ -467,7 +433,7 @@ public class Hex {
 	// File reader
 	public static String readFrom(String fileName) throws Exception {
 		String out = "";
-		Scanner fileReader = new Scanner(new File(fileName));
+		Scanner fileReader = new Scanner(new File(fileName + ".txt"));
 		while (fileReader.hasNext()) {
 			out += fileReader.nextLine();
 			if (fileReader.hasNext())
