@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.event.InputEvent;
 import java.util.*;
 import java.io.*;
 import java.net.*;
@@ -32,96 +33,89 @@ import java.rmi.server.*;
  * 
  */
 
-public class Hex 
-{
-	public static void main(String[] args) throws Exception 
-	{
+public class Hex {
+	public static void main(String[] args) throws Exception {
 		// Menu Mode or Hardline Mode
 		// Main Loop
-			// Menu Mode
-				// Autoclick, Alternate, or Macro
-				// Get information for selected action
-					// Autoclick
-						// Load file or new?
-							// New
-								// Click delay?
-								// Total clicks?
-							// Load
-								// Display applicable
-								// Load it
-					// Alternate
-						// Load file or new?
-							// New
-								// Click delay?
-								// Total clicks?
-								// Key to press?
-							// Load
-								// Display applicable
-								// Load it
-					// Macro
-						// Load file or new?
-							// New
-								// IPress, HPress, IClick, HClick, Delay
-									// IPress
-									// HPress
-									// IClick
-									// HClick
-									// Delay
-							// Load
-								// Display applicable
-								// Load it
-			// Hardline mode
-				// Get all information
-			// Execute action
+		// Menu Mode
+		// Autoclick, Alternate, or Macro
+		// Get information for selected action
+		// Autoclick
+		// Load file or new?
+		// New
+		// Click delay?
+		// Total clicks?
+		// Load
+		// Display applicable
+		// Load it
+		// Alternate
+		// Load file or new?
+		// New
+		// Click delay?
+		// Total clicks?
+		// Key to press?
+		// Load
+		// Display applicable
+		// Load it
+		// Macro
+		// Load file or new?
+		// New
+		// IPress, HPress, IClick, HClick, Delay
+		// IPress
+		// HPress
+		// IClick
+		// HClick
+		// Delay
+		// Load
+		// Display applicable
+		// Load it
+		// Hardline mode
+		// Get all information
+		// Execute action
 	}
 
 	// Does autoclicking
-	public static void autoclick(String fileName)
-	{
-		
+	public static void autoclick(String fileName) {
+
 	}
-	
+
 	// Does alternating
-	public static void alternate(String fileName)
-	{
-		
+	public static void alternate(String fileName) {
+
 	}
-	
+
 	// Does a macro
-	public static void macro(String fileName)
-	{
-		
+	public static void macro(String fileName) {
+
 	}
-	
+
 	// Clicks and holds for some time
-	public static void click(int ms)
-	{
-		
+	public static void click(int ms) throws Exception {
+		Robot bot = new Robot();
+		bot.mousePress(InputEvent.BUTTON1_MASK);
+		Thread.sleep(ms);
+		bot.mouseRelease(InputEvent.BUTTON1_MASK);
 	}
-	
+
 	// Presses a key and holds for some time
-	public static void press(String key, int ms)
-	{
-		
+	public static void press(String key, int ms) {
+
 	}
-	
+
 	// Types multiple keys with a delay
-	public static void type(String key, int ms)
-	{
-		
+	public static void type(String key, int ms) {
+
 	}
-	
+
 	// File writer
-	public static void writeTo(String fileName, String toAdd)
-	{
-		
+	public static void writeTo(String fileName, String toAdd) {
+
 	}
 
 	// File reader
-	public static String readFrom(String fileName)
-	{
+	public static String readFrom(String fileName) {
 		String out = "";
-		
+
 		return out;
 	}
 }
