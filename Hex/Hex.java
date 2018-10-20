@@ -44,10 +44,8 @@ import java.rmi.server.*;
  * Macro:
  * 	MC[Action(Data)][Action(Data)][ ... ]
  * 		Action = an action: Press, Click, Delay
- * 			Press(Data) = (ToPress, ms, loopsPer)
- * 				ToPress = what key(s) to press
- * 			Click(Data) = (ms, loopsPer)
- * 			Delay(Data) = (ms, loopsPer)
+ * 			(Data) = (ToPress,ms,loopsPer)
+ * 				ToPress = what key(s) to press (does not apply to Click or Delay)
  * 		    	ms = time between parts of this step
  * 				loopsPer = how many loops per run of this action
  */
@@ -92,33 +90,63 @@ public class Hex {
 		// Get all information
 		// Execute action
 	}
+	
+	private static class Command
+	{
+		public String type; // Press, Click, Delay
+		public String press; // Used only in Press, otherwise "-", what to type
+		public int ms; // Always used, time per command action
+		public int loopsPer; // Always used, loops per run of this command
+		
+		// TODO Parses a string to a command of form: [type(press,ms,loopsPer)
+		public Command(String in) 
+		{
+			
+		}
+		
+		// TODO Fills in data directly
+		public Command(String t, String p, int m, int l) 
+		{
+			
+		}
+		
+		// TODO Executes this command
+		public  void execute()
+		{
+			
+		}
+		
+		// TODO Shows data based on type
+		public String toString()
+		{
+			
+		}
+	}
 
 	// Asks a yes or no question.
-	public static boolean yes(String question)
-	{
+	public static boolean yes(String question) {
 		println(question + " Yes/No");
 		String choice = "";
 		boolean invalid = false;
-		while (!choice.equalsIgnoreCase("y") || !choice.equalsIgnoreCase("yes") || !choice.equalsIgnoreCase("n") || !choice.equalsIgnoreCase("no"))
-		{
+		while (!choice.equalsIgnoreCase("y") || !choice.equalsIgnoreCase("yes") || !choice.equalsIgnoreCase("n")
+				|| !choice.equalsIgnoreCase("no")) {
 			if (invalid)
 				println("ERROR: Bad user input.\nEnter Yes or Y for Affirmative; No or N for Negative.");
 			choice = new Scanner(System.in).nextLine();
 			invalid = true;
 		}
 		return choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes");
-	}	
-	
+	}
+
 	// Printers.
-	public static void print(Object o)
-	{
+	public static void print(Object o) {
 		System.out.print(o.toString());
 	}
-	public static void println(Object o)
-	{
+
+	public static void println(Object o) {
 		System.out.println(o.toString());
 	}
-	
+
 	// Does autoclicking
 	public static void autoclick(String fileName) throws Exception {
 		String data = readFrom(fileName);
@@ -138,8 +166,7 @@ public class Hex {
 			} catch (Exception e) {
 				println("ERROR: Bad file data. Failed to execute.");
 			}
-		}
-		else
+		} else
 			println("ERROR: Bad file data. Failed to execute.");
 	}
 
@@ -156,10 +183,10 @@ public class Hex {
 				type = data.substring(data.indexOf("["), data.indexOf("]"));
 				data = data.substring(data.indexOf("]") + 1);
 				ms = Integer.parseInt(data.substring(data.indexOf("["), data.indexOf("]")));
-				println("Alternate: Data accepted. Clicking " + clicks + " times alternating \""+type+"\" with a " + ms + " ms delay.");
+				println("Alternate: Data accepted. Clicking " + clicks + " times alternating \"" + type + "\" with a "
+						+ ms + " ms delay.");
 				if (yes("Continue?"))
-					for (int i = 0; i < clicks; i++)
-					{
+					for (int i = 0; i < clicks; i++) {
 						click(ms);
 						press(type, ms);
 					}
@@ -168,13 +195,23 @@ public class Hex {
 			} catch (Exception e) {
 				println("ERROR: Bad file data. Failed to execute.");
 			}
-		}
-		else
+		} else
 			println("ERROR: Bad file data. Failed to execute.");
 	}
 
 	// TODO Does a macro
-	public static void macro(String fileName) {
+	public static void macro(String fileName) throws Exception {
+		try {
+			String[] data = readFrom(fileName).substring(2).split("]"); // MC[...][...][...] -> [...][...][...] -> [...
+																		// , [... , [...
+			println("Data loaded:");
+			for (String out : data)
+			{
+				
+			}
+		} catch (Exception e) {
+			println("ERROR: Bad file data. Failed to execute.");
+		}
 
 	}
 
@@ -361,34 +398,32 @@ public class Hex {
 		for (int i = 0; i < keys.length(); i++)
 			press(keys, ms);
 	}
-	
+
 	// File writer
 	public static void writeTo(String fileName, String toAdd) throws Exception {
-		if (!(new File(fileName).exists()))
-	      {
-	         FileWriter libraryf = new FileWriter("library", true);
-	         PrintWriter libraryp = new PrintWriter(libraryf);
-	         libraryp.printf("%s" + "%n" , fileName);
-	         libraryp.close();
-	      }
-	      
-	      FileWriter filew = new FileWriter(fileName, true);
-	      PrintWriter writer = new PrintWriter(filew);
-	      writer.printf("%s" + "%n" , toAdd);
-	      writer.close();
+		if (!(new File(fileName).exists())) {
+			FileWriter libraryf = new FileWriter("library", true);
+			PrintWriter libraryp = new PrintWriter(libraryf);
+			libraryp.printf("%s" + "%n", fileName);
+			libraryp.close();
+		}
+
+		FileWriter filew = new FileWriter(fileName, true);
+		PrintWriter writer = new PrintWriter(filew);
+		writer.printf("%s" + "%n", toAdd);
+		writer.close();
 	}
 
 	// File reader
 	public static String readFrom(String fileName) throws Exception {
 		String out = "";
 		Scanner fileReader = new Scanner(new File(fileName));
-	    while (fileReader.hasNext())
-	    {
-	         out += fileReader.nextLine();
-	         if (fileReader.hasNext())
-	        	 out += "\n";
-	    }
-	    fileReader.close();
-	    return out;
+		while (fileReader.hasNext()) {
+			out += fileReader.nextLine();
+			if (fileReader.hasNext())
+				out += "\n";
+		}
+		fileReader.close();
+		return out;
 	}
 }
