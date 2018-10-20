@@ -274,15 +274,51 @@ public class Hex {
 			press(keys, ms);
 	}
 
-	// TODO File writer
-	public static void writeTo(String fileName, String toAdd) {
-
+	/*public static void AppendFile(String name, String toAdd) throws FileNotFoundException, IOException// appends text to the given file, or creates it
+   public static void ClearFile(String name) throws FileNotFoundException, IOException// clears a file of all data
+   {
+      FileWriter filew = new FileWriter(name, false);
+      PrintWriter writer = new PrintWriter(filew);
+      writer.printf("%s" + "%n" , "");
+      writer.close();
+   }
+   public static void ReadFile(String name) throws FileNotFoundException, IOException, InterruptedException, AWTException // reads a file
+   {
+      Scanner fileReader = new Scanner(new File(name));
+      charPrint("|-FILE:"+name+"-------|");
+      while (fileReader.hasNext())
+         charPrint(fileReader.nextLine());
+      charPrint("--<EOF>--");
+   }
+   */
+	
+	// File writer
+	public static void writeTo(String fileName, String toAdd) throws Exception {
+		if (!(new File(fileName).exists()))
+	      {
+	         FileWriter libraryf = new FileWriter("library", true);
+	         PrintWriter libraryp = new PrintWriter(libraryf);
+	         libraryp.printf("%s" + "%n" , fileName);
+	         libraryp.close();
+	      }
+	      
+	      FileWriter filew = new FileWriter(fileName, true);
+	      PrintWriter writer = new PrintWriter(filew);
+	      writer.printf("%s" + "%n" , toAdd);
+	      writer.close();
 	}
 
-	// TODO File reader
-	public static String readFrom(String fileName) {
+	// File reader
+	public static String readFrom(String fileName) throws FileNotFoundException {
 		String out = "";
-
-		return out;
+		Scanner fileReader = new Scanner(new File(fileName));
+	    while (fileReader.hasNext())
+	    {
+	         out += fileReader.nextLine();
+	         if (fileReader.hasNext())
+	        	 out += "\n";
+	    }
+	    fileReader.close();
+	    return out;
 	}
 }
