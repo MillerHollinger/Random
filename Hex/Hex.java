@@ -129,9 +129,8 @@ public class Hex {
 				clicks = Integer.parseInt(data.substring(data.indexOf("["), data.indexOf("]")));
 				data = data.substring(data.indexOf("]") + 1);
 				ms = Integer.parseInt(data.substring(data.indexOf("["), data.indexOf("]")));
-				data = data.substring(data.indexOf("]") + 1);
-				println("Data accepted. Clicking " + clicks + " times with a " + ms + " ms delay.");
-				if (yes("Continue?))"))
+				println("Autoclick: Data accepted. Clicking " + clicks + " times with a " + ms + " ms delay.");
+				if (yes("Continue?"))
 					for (int i = 0; i < clicks; i++)
 						click(ms);
 				else
@@ -144,9 +143,34 @@ public class Hex {
 			println("ERROR: Bad file data. Failed to execute.");
 	}
 
-	// TODO Does alternating
-	public static void alternate(String fileName) {
-
+	// Does alternating
+	public static void alternate(String fileName) throws Exception {
+		String data = readFrom(fileName);
+		int clicks = 0;
+		String type = "";
+		int ms = 0;
+		if (data.substring(0, 4).equals("LT[")) {
+			try {
+				clicks = Integer.parseInt(data.substring(data.indexOf("["), data.indexOf("]")));
+				data = data.substring(data.indexOf("]") + 1);
+				type = data.substring(data.indexOf("["), data.indexOf("]"));
+				data = data.substring(data.indexOf("]") + 1);
+				ms = Integer.parseInt(data.substring(data.indexOf("["), data.indexOf("]")));
+				println("Alternate: Data accepted. Clicking " + clicks + " times alternating \""+type+"\" with a " + ms + " ms delay.");
+				if (yes("Continue?"))
+					for (int i = 0; i < clicks; i++)
+					{
+						click(ms);
+						press(type, ms);
+					}
+				else
+					println("Cancelled.");
+			} catch (Exception e) {
+				println("ERROR: Bad file data. Failed to execute.");
+			}
+		}
+		else
+			println("ERROR: Bad file data. Failed to execute.");
 	}
 
 	// TODO Does a macro
