@@ -22,8 +22,6 @@ import java.rmi.server.*;
  *     - Record and write
  *     - Efficient saving
  *     - Edit pre-existing macros
- * Library
- *   - See macros, delete as well
  * 
  * Two Modes
  * > Menu Mode
@@ -50,13 +48,22 @@ import java.rmi.server.*;
  * 				loopsPer = how many loops per run of this action
  */
 
-// v0.4.2
+/* To Do List
+ *  > Can't put commas in Press commands as they are used to parse info -- replace parse character with another
+ * 
+ */
 
 public class Hex {
-	// TODO user interactions
+	// VERSION NUMBER
+	final static String version = "v0.5.2";
+	
+	// Display debug information
+	final static boolean DEBUG = true;
+
+	// User interactions
 	public static void main(String[] args) throws Exception {
 		println("Hex by MillerHollinger : Input Automation");
-		println("   v0.4.2");
+		println("   " + version);
 		println("Please enter a file name to begin.");
 		String fileName = new Scanner(System.in).nextLine();
 		try {
@@ -87,24 +94,32 @@ public class Hex {
 
 		// Parses a string to a command of form: [type(press,ms,loopsPer)
 		public Command(String in) {
-			println("Attempting to load command with info: " + in); // DEBUG
+			if (DEBUG)
+				println("Attempting to load command with info: " + in); // DEBUG
 			try {
 				type = in.substring(1, 6);
 				in = in.substring(6);
-				println("Loaded type of " + type + "; in = " + in); // DEBUG
+				if (DEBUG)
+					println("Loaded type of " + type + "; in = " + in); // DEBUG
 
 				press = in.substring(1, in.indexOf(","));
 				in = in.substring(in.indexOf(",") + 1);
-				println("Loaded press of " + press + "; in = " + in); // DEBUG
+				if (DEBUG)
+					println("Loaded press of " + press + "; in = " + in); // DEBUG
 
 				ms = Integer.parseInt(in.substring(0, in.indexOf(",")));
 				in = in.substring(in.indexOf(",") + 1);
-				println("Loaded ms of " + ms + "; in = " + in); // DEBUG
+				if (DEBUG)
+					println("Loaded ms of " + ms + "; in = " + in); // DEBUG
 
 				loopsPer = Integer.parseInt(in.substring(0, in.indexOf(")")));
-				println("Loaded loopsPer of " + loopsPer + "; in = " + in); // DEBUG
+				if (DEBUG)
+					println("Loaded loopsPer of " + loopsPer + "; in = " + in); // DEBUG
 			} catch (Exception e) {
-				println("ERROR: Failed to load command. " + e); // DEBUG
+				if (DEBUG)
+					println("ERROR: Failed to load command. " + e); // DEBUG
+				else
+					println("ERROR: Failed to load command. ");
 			}
 		}
 
@@ -119,7 +134,7 @@ public class Hex {
 		// Executes this command
 		public void execute(int loopNum) throws Exception {
 			if (loopNum % loopsPer == 0) {
-				println("Executing " + this.toString() + "; loopNum = " + loopNum); // DEBUG
+				if(DEBUG)println("Executing " + this.toString() + "; loopNum = " + loopNum); // DEBUG
 				switch (type) {
 				case "Press":
 					type(press, ms);
@@ -261,7 +276,10 @@ public class Hex {
 				println("Cancelled.");
 
 		} catch (Exception e) {
-			println("ERROR: Bad file data. Failed to execute. " + e); // DEBUG
+			if (DEBUG)
+				println("ERROR: Bad file data. Failed to execute. " + e); // DEBUG
+			else
+				println("ERROR: Bad file data. Failed to execute. ");
 		}
 
 	}
@@ -451,7 +469,7 @@ public class Hex {
 	// Types multiple keys with a delay
 	public static void type(String keys, int ms) throws Exception {
 		for (int i = 0; i < keys.length(); i++)
-			press(keys.substring(i, i+1), ms);
+			press(keys.substring(i, i + 1), ms);
 	}
 
 	// File writer
