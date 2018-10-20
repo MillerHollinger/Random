@@ -233,14 +233,32 @@ public class Hex {
 	}
 
 	// TODO Does a macro
+	@SuppressWarnings("resource")
 	public static void macro(String fileName) throws Exception {
 		try {
 			String[] data = readFrom(fileName).substring(2).split("]"); // MC[...][...][...] -> [...][...][...] -> [...
 																		// , [... , [...
-			println("Data loaded:");
-			for (String out : data) {
-
+			ArrayList<Command> commands = new ArrayList<Command>();
+			
+			for (String info : data)
+				commands.add(new Command(info));
+			
+			println("Macro \""+fileName+"\" loaded:");
+			for (Command c : commands)
+				println(c);
+			
+			if (yes("Continue?"))
+			{
+				println("How many loops to run?");
+				int loops = new Scanner(System.in).nextInt();
+				for (int i = 0; i < loops; i++)
+					for (int j = 0; j < commands.size(); j++)
+						commands.get(j).execute(i);
+				println("Finished.");
 			}
+			else
+				println("Cancelled.");
+			
 		} catch (Exception e) {
 			println("ERROR: Bad file data. Failed to execute.");
 		}
