@@ -50,9 +50,33 @@ import java.rmi.server.*;
  * 				loopsPer = how many loops per run of this action
  */
 
+// v0.4.2
+
 public class Hex {
+	// TODO user interactions
 	public static void main(String[] args) throws Exception {
-		macro("testMacro");
+		println("Hex by MillerHollinger : Input Automation");
+		println("   v0.4.2");
+		println("Please enter a file name to begin.");
+		String fileName = new Scanner(System.in).nextLine();
+		try {
+			switch (readFrom(fileName).substring(0, 2)) {
+			case "AC":
+				autoclick(fileName);
+				break;
+			case "LT":
+				alternate(fileName);
+				break;
+			case "MC":
+				macro(fileName);
+				break;
+			default:
+				println("ERROR: Bad file data; type unspecified.");
+				break;
+			}
+		} catch (Exception e) {
+			println("ERROR: File does not exist.");
+		}
 	}
 
 	private static class Command {
@@ -98,7 +122,7 @@ public class Hex {
 				println("Executing " + this.toString() + "; loopNum = " + loopNum); // DEBUG
 				switch (type) {
 				case "Press":
-					press(press, ms);
+					type(press, ms);
 					break;
 				case "Click":
 					click(ms);
@@ -218,6 +242,17 @@ public class Hex {
 			if (yes("Continue?")) {
 				println("How many loops to run?");
 				int loops = new Scanner(System.in).nextInt();
+				println("Beginning in five seconds.");
+				Thread.sleep(1000);
+				println("             four seconds.");
+				Thread.sleep(1000);
+				println("            three seconds.");
+				Thread.sleep(1000);
+				println("              two seconds.");
+				Thread.sleep(1000);
+				println("               one second.");
+				Thread.sleep(1000);
+				println("                Executing:");
 				for (int i = 1; i <= loops; i++)
 					for (int j = 0; j < commands.size(); j++)
 						commands.get(j).execute(i);
@@ -400,6 +435,10 @@ public class Hex {
 			bot.keyPress(KeyEvent.VK_COMMA);
 			bot.keyRelease(KeyEvent.VK_COMMA);
 			break;
+		case " ":
+			bot.keyPress(KeyEvent.VK_SPACE);
+			bot.keyRelease(KeyEvent.VK_SPACE);
+			break;
 		case "+": // Shift Press
 			bot.keyPress(KeyEvent.VK_SHIFT);
 			break;
@@ -412,7 +451,7 @@ public class Hex {
 	// Types multiple keys with a delay
 	public static void type(String keys, int ms) throws Exception {
 		for (int i = 0; i < keys.length(); i++)
-			press(keys, ms);
+			press(keys.substring(i, i+1), ms);
 	}
 
 	// File writer
