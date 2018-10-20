@@ -90,36 +90,69 @@ public class Hex {
 		// Get all information
 		// Execute action
 	}
-	
-	private static class Command
-	{
+
+	private static class Command {
 		public String type; // Press, Click, Delay
 		public String press; // Used only in Press, otherwise "-", what to type
 		public int ms; // Always used, time per command action
 		public int loopsPer; // Always used, loops per run of this command
-		
-		// TODO Parses a string to a command of form: [type(press,ms,loopsPer)
-		public Command(String in) 
-		{
-			
+
+		// Parses a string to a command of form: [type(press,ms,loopsPer)
+		public Command(String in) {
+			try
+			{
+				type = in.substring(1, 6); 
+				in = in.substring(6);
+				
+				press = in.substring(1,in.indexOf(","));  
+				in = in.substring(in.indexOf(",") + 1);
+				
+				ms = Integer.parseInt(in.substring(1,in.indexOf(",")));  
+				in = in.substring(in.indexOf(",") + 1);
+				
+				loopsPer = Integer.parseInt(in.substring(1,in.indexOf(",")));  
+			}
+			catch (Exception e)
+			{
+				println("ERROR: Failed to load command");
+			}
 		}
-		
-		// TODO Fills in data directly
-		public Command(String t, String p, int m, int l) 
-		{
-			
+
+		// Fills in data directly
+		public Command(String t, String p, int m, int l) {
+			type = t;
+			press = p;
+			ms = m;
+			loopsPer = l;
 		}
-		
-		// TODO Executes this command
-		public  void execute()
-		{
-			
+
+		// Executes this command if loopsPer % loopNum == 0
+		public void execute(int loopNum) throws Exception {
+			if (loopsPer % loopNum == 0)
+				switch (type) {
+				case "Press":
+					press(press, ms);
+					break;
+				case "Click":
+					click(ms);
+					break;
+				case "Delay":
+					Thread.sleep(ms);
+					break;
+				}
 		}
-		
-		// TODO Shows data based on type
-		public String toString()
-		{
-			
+
+		// Returns data based on type
+		public String toString() {
+			switch (type) {
+			case "Press":
+				return "Press() : Presses " + press + "; " + ms + " ms delay; runs every " + loopsPer + " loops";
+			case "Click":
+				return "Click() : Clicks once with " + ms + " ms delay; runs every " + loopsPer + " loops";
+			case "Delay":
+				return "Delay() : Pause for " + ms + " ms; runs every " + loopsPer + " loops";
+			}
+			return "ERROR: Invalid Command type";
 		}
 	}
 
@@ -205,9 +238,8 @@ public class Hex {
 			String[] data = readFrom(fileName).substring(2).split("]"); // MC[...][...][...] -> [...][...][...] -> [...
 																		// , [... , [...
 			println("Data loaded:");
-			for (String out : data)
-			{
-				
+			for (String out : data) {
+
 			}
 		} catch (Exception e) {
 			println("ERROR: Bad file data. Failed to execute.");
