@@ -1,0 +1,1 @@
+MC[Press(hello,10,3)][Click(-,200,1)][Delay(-,100,2)]
