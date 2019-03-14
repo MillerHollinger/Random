@@ -39,7 +39,7 @@ public class HexNet {
    JFrame frame = new JFrame("HexNet");
    JTextField textField = new JTextField(40);
    JTextArea messageArea = new JTextArea(8, 40);
-DefaultCaret caret = (DefaultCaret)messageArea.getCaret();
+   DefaultCaret caret = (DefaultCaret)messageArea.getCaret();
    public HexNet() {
      //Configuration of the UI. Sets up the font and everything so it looks all cool.
       Font textFont = new Font("Monospaced", Font.PLAIN, 18);
