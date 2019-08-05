@@ -216,13 +216,13 @@ public class Hex {
 		int clicks = 0;
 		String type = "";
 		int ms = 0;
-		if (data.substring(0, 4).equals("LT[")) {
+		if (data.substring(0, 3).equals("LT[")) {
 			try {
-				clicks = Integer.parseInt(data.substring(data.indexOf("["), data.indexOf("]")));
+				clicks = Integer.parseInt(data.substring(data.indexOf("[") + 1, data.indexOf("]")));
 				data = data.substring(data.indexOf("]") + 1);
-				type = data.substring(data.indexOf("["), data.indexOf("]"));
+				type = data.substring(data.indexOf("[") + 1, data.indexOf("]"));
 				data = data.substring(data.indexOf("]") + 1);
-				ms = Integer.parseInt(data.substring(data.indexOf("["), data.indexOf("]")));
+				ms = Integer.parseInt(data.substring(data.indexOf("[") + 1, data.indexOf("]")));
 				println("Alternate: Data accepted. Clicking " + clicks + " times alternating \"" + type + "\" with a "
 						+ ms + " ms delay.");
 				if (yes("Continue?"))
@@ -233,7 +233,7 @@ public class Hex {
 				else
 					println("Cancelled.");
 			} catch (Exception e) {
-				println("ERROR: Bad file data. Failed to execute.");
+				println("ERROR: Bad file data. Failed to execute." + e);
 			}
 		} else
 			println("ERROR: Bad file data. Failed to execute.");
