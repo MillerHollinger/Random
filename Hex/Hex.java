@@ -295,166 +295,180 @@ public class Hex {
 	// Presses a key and holds for some time
 	public static void press(String key, int ms) throws Exception {
 		Robot bot = new Robot();
-		bot.setAutoDelay(ms);
+		bot.setAutoDelay(10);
 		switch (key) {
 		case "0":
 			bot.keyPress(KeyEvent.VK_0);
+         Thread.sleep(ms);
 			bot.keyRelease(KeyEvent.VK_0);
 			break;
 		case "1":
 			bot.keyPress(KeyEvent.VK_1);
+         Thread.sleep(ms);
 			bot.keyRelease(KeyEvent.VK_1);
 			break;
 		case "2":
 			bot.keyPress(KeyEvent.VK_2);
+         Thread.sleep(ms);
 			bot.keyRelease(KeyEvent.VK_2);
 			break;
 		case "3":
 			bot.keyPress(KeyEvent.VK_3);
+         Thread.sleep(ms);
 			bot.keyRelease(KeyEvent.VK_3);
 			break;
 		case "4":
 			bot.keyPress(KeyEvent.VK_4);
+         Thread.sleep(ms);
 			bot.keyRelease(KeyEvent.VK_4);
 			break;
 		case "5":
 			bot.keyPress(KeyEvent.VK_5);
+         Thread.sleep(ms);
 			bot.keyRelease(KeyEvent.VK_5);
 			break;
 		case "6":
 			bot.keyPress(KeyEvent.VK_6);
+         Thread.sleep(ms);
 			bot.keyRelease(KeyEvent.VK_6);
 			break;
 		case "7":
 			bot.keyPress(KeyEvent.VK_7);
+         Thread.sleep(ms);
 			bot.keyRelease(KeyEvent.VK_7);
 			break;
 		case "8":
 			bot.keyPress(KeyEvent.VK_8);
+         Thread.sleep(ms);
 			bot.keyRelease(KeyEvent.VK_8);
 			break;
 		case "9":
 			bot.keyPress(KeyEvent.VK_9);
+         Thread.sleep(ms);
 			bot.keyRelease(KeyEvent.VK_9);
 			break;
 		case "a":
 			bot.keyPress(KeyEvent.VK_A);
+         Thread.sleep(ms);
 			bot.keyRelease(KeyEvent.VK_A);
 			break;
 		case "b":
 			bot.keyPress(KeyEvent.VK_B);
+         Thread.sleep(ms);
 			bot.keyRelease(KeyEvent.VK_B);
 			break;
 		case "c":
 			bot.keyPress(KeyEvent.VK_C);
+         Thread.sleep(ms);
 			bot.keyRelease(KeyEvent.VK_C);
 			break;
 		case "d":
 			bot.keyPress(KeyEvent.VK_D);
+         Thread.sleep(ms);
 			bot.keyRelease(KeyEvent.VK_D);
 			break;
 		case "e":
-			bot.keyPress(KeyEvent.VK_E);
+			bot.keyPress(KeyEvent.VK_E);Thread.sleep(ms);
 			bot.keyRelease(KeyEvent.VK_E);
 			break;
 		case "f":
-			bot.keyPress(KeyEvent.VK_F);
+			bot.keyPress(KeyEvent.VK_F);Thread.sleep(ms);
 			bot.keyRelease(KeyEvent.VK_F);
 			break;
 		case "g":
-			bot.keyPress(KeyEvent.VK_G);
+			bot.keyPress(KeyEvent.VK_G);Thread.sleep(ms);
 			bot.keyRelease(KeyEvent.VK_G);
 			break;
 		case "h":
-			bot.keyPress(KeyEvent.VK_H);
+			bot.keyPress(KeyEvent.VK_H);Thread.sleep(ms);
 			bot.keyRelease(KeyEvent.VK_H);
 			break;
 		case "i":
-			bot.keyPress(KeyEvent.VK_I);
+			bot.keyPress(KeyEvent.VK_I);Thread.sleep(ms);
 			bot.keyRelease(KeyEvent.VK_I);
 			break;
 		case "j":
-			bot.keyPress(KeyEvent.VK_J);
+			bot.keyPress(KeyEvent.VK_J);Thread.sleep(ms);
 			bot.keyRelease(KeyEvent.VK_J);
 			break;
 		case "k":
-			bot.keyPress(KeyEvent.VK_K);
+			bot.keyPress(KeyEvent.VK_K);Thread.sleep(ms);
 			bot.keyRelease(KeyEvent.VK_K);
 			break;
 		case "l":
-			bot.keyPress(KeyEvent.VK_L);
+			bot.keyPress(KeyEvent.VK_L);Thread.sleep(ms);
 			bot.keyRelease(KeyEvent.VK_L);
 			break;
 		case "m":
-			bot.keyPress(KeyEvent.VK_M);
+			bot.keyPress(KeyEvent.VK_M);Thread.sleep(ms);
 			bot.keyRelease(KeyEvent.VK_M);
 			break;
 		case "n":
-			bot.keyPress(KeyEvent.VK_N);
+			bot.keyPress(KeyEvent.VK_N);Thread.sleep(ms);
 			bot.keyRelease(KeyEvent.VK_N);
 			break;
 		case "o":
-			bot.keyPress(KeyEvent.VK_O);
+			bot.keyPress(KeyEvent.VK_O);Thread.sleep(ms);
 			bot.keyRelease(KeyEvent.VK_O);
 			break;
 		case "p":
-			bot.keyPress(KeyEvent.VK_P);
+			bot.keyPress(KeyEvent.VK_P);Thread.sleep(ms);
 			bot.keyRelease(KeyEvent.VK_P);
 			break;
 		case "q":
-			bot.keyPress(KeyEvent.VK_Q);
+			bot.keyPress(KeyEvent.VK_Q);Thread.sleep(ms);
 			bot.keyRelease(KeyEvent.VK_Q);
 			break;
 		case "r":
-			bot.keyPress(KeyEvent.VK_R);
+			bot.keyPress(KeyEvent.VK_R);Thread.sleep(ms);
 			bot.keyRelease(KeyEvent.VK_R);
 			break;
 		case "s":
-			bot.keyPress(KeyEvent.VK_S);
+			bot.keyPress(KeyEvent.VK_S);Thread.sleep(ms);
 			bot.keyRelease(KeyEvent.VK_S);
 			break;
 		case "t":
-			bot.keyPress(KeyEvent.VK_T);
+			bot.keyPress(KeyEvent.VK_T);Thread.sleep(ms);
 			bot.keyRelease(KeyEvent.VK_T);
 			break;
 		case "u":
-			bot.keyPress(KeyEvent.VK_U);
+			bot.keyPress(KeyEvent.VK_U);Thread.sleep(ms);
 			bot.keyRelease(KeyEvent.VK_U);
 			break;
 		case "v":
-			bot.keyPress(KeyEvent.VK_V);
+			bot.keyPress(KeyEvent.VK_V);Thread.sleep(ms);
 			bot.keyRelease(KeyEvent.VK_V);
 			break;
 		case "w":
-			bot.keyPress(KeyEvent.VK_W);
+			bot.keyPress(KeyEvent.VK_W);Thread.sleep(ms);
 			bot.keyRelease(KeyEvent.VK_W);
 			break;
 		case "x":
-			bot.keyPress(KeyEvent.VK_X);
+			bot.keyPress(KeyEvent.VK_X);Thread.sleep(ms);
 			bot.keyRelease(KeyEvent.VK_X);
 			break;
 		case "y":
-			bot.keyPress(KeyEvent.VK_Y);
+			bot.keyPress(KeyEvent.VK_Y);Thread.sleep(ms);
 			bot.keyRelease(KeyEvent.VK_Y);
 			break;
 		case "z":
-			bot.keyPress(KeyEvent.VK_Z);
+			bot.keyPress(KeyEvent.VK_Z);Thread.sleep(ms);
 			bot.keyRelease(KeyEvent.VK_Z);
 			break;
 		case "#": // Enter
-			bot.keyPress(KeyEvent.VK_ENTER);
+			bot.keyPress(KeyEvent.VK_ENTER);Thread.sleep(ms);
 			bot.keyRelease(KeyEvent.VK_ENTER);
 			break;
 		case "/":
-			bot.keyPress(KeyEvent.VK_SLASH);
+			bot.keyPress(KeyEvent.VK_SLASH);Thread.sleep(ms);
 			bot.keyRelease(KeyEvent.VK_SLASH);
 			break;
 		case ",":
-			bot.keyPress(KeyEvent.VK_COMMA);
+			bot.keyPress(KeyEvent.VK_COMMA);Thread.sleep(ms);
 			bot.keyRelease(KeyEvent.VK_COMMA);
 			break;
 		case " ":
-			bot.keyPress(KeyEvent.VK_SPACE);
+			bot.keyPress(KeyEvent.VK_SPACE);Thread.sleep(ms);
 			bot.keyRelease(KeyEvent.VK_SPACE);
 			break;
 		case "+": // Shift Press
