@@ -1,6 +1,6 @@
 # Random
-Grab bag. There could be anything in here.
+An old general-purpose repo for some code I wrote in high school.
 ## HexNet
-Probably the reason you're here. Used to connect to all Hexagon games. Moved from the HexNet repository.  
+Used to connect to all HexNet compatible games. Moved from the HexNet repository.  
 ### RevolutionsTester
-Code used to test an upcoming card game by changing variables.
+Code used to test a card game.
